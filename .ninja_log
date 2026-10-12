@@ -1,0 +1,5 @@
+# ninja log v6
+0	259	1791774285564438645	/home/kerlynx/Projects/leopard-project/xsh/out/main.c.o	c6ccfb5311c099a4
+259	278	1791774285824384384	/home/kerlynx/Projects/leopard-project/xsh/out/xsh.elf	d1f99291b063f082
+9	273	1791795751504994566	/home/kerlynx/Projects/leopard-project/xsh/out/main.c.o	c6ccfb5311c099a4
+273	291	1791795751770012683	/home/kerlynx/Projects/leopard-project/xsh/out/xsh.elf	d1f99291b063f082

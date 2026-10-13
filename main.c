@@ -36,9 +36,12 @@ int main(int argc, char *argv[], char *envp[])
         char path[LINE_CAP];
         snprintf(path, sizeof(path), "/apps/%s", args[0]);
 
-        int64_t result = (int64_t)xapi_RunArgs((WSTR)path, (WSTR *)args);
-        if (result < 0)
+        int64_t pid = (int64_t)xapi_RunArgs((WSTR)path, (WSTR *)args);
+        if (pid < 0)
             xapi_Printf("command not found\n");
+	int status = 0;
+	enter_syscall(SYS_WAIT4, (uint64_t)pid, (uint64_t)&status,
+			0, 0, 0, 0);
     }
 }
 

@@ -13,8 +13,12 @@ SOURCES = ["main.c"]
 TARGET  = OUT / "xsh.elf"
 
 # SDK 运行时，链接顺序：crt0 入口 → 运行时 → 应用 → liballoc
-RUNTIME  = ["crt0.o", "libsys.cpp.o", "xgui_stubs.cpp.o",
-            "constart.cpp.o", "xtuiapi.cpp.o", "krlibc.cpp.o"]
+# XACT 2026v5 官方运行时（obj-tui/ 由 leopard-sdk 铺装）
+RUNTIME  = ["arch/x86_64/crt0.S.o", "libsys.cpp.o", "constart.cpp.o",
+            "xtuiapi.cpp.o", "krlibc.cpp.o", "string.cpp.o", "stdlib.cpp.o",
+            "stdio.cpp.o", "unistd.cpp.o", "errno.cpp.o", "posix_ret.cpp.o",
+            "ctype.cpp.o", "permissions.cpp.o", "posix_fs.cpp.o",
+            "posix_time.cpp.o", "posix_ioctl.cpp.o"]
 LIBALLOC = OBJ / "liballoc-x86_64.a"
 
 

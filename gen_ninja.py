@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""xsh 构建：消费 ../XJ380-SDK 的 obj-tui + include，输出 out/xsh.elf。"""
+"""xsh 构建：消费 ../XACT-CRT 的 include + lib/x86_64，输出 out/xsh.elf。"""
 import os
 from pathlib import Path
 
@@ -42,7 +42,7 @@ def main():
     c_flags   = f"{common} -std=c11   -I {rel(INC)} -I . -MMD -MP"
     cpp_flags = f"{common} -std=c++11 -I {rel(INC)} -I . -Wno-write-strings -MMD -MP"
 
-    L = ["# xsh 构建（消费 ../XJ380-SDK）",
+    L = ["# xsh 构建（消费 ../XACT-CRT）",
          "ninja_required_version = 1.10",
          f"cc = {cc}", f"cxx = {cxx}", f"ld = {ld}",
          f"c_flags = {c_flags}", f"cpp_flags = {cpp_flags}", ""]

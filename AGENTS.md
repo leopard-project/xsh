@@ -7,5 +7,5 @@
     python3 gen_ninja.py && ninja build   # → out/xsh.elf
     ninja pack
 
-- 静态 ELF，依赖 `../leopard-sdk`。
+- 静态 ELF，依赖 `../XJ380-SDK`（`src/include` + `obj-tui`）。
 - 新 shell 开发优先走 leopard-shell，不回流到 xsh。

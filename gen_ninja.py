@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""xsh 构建：消费 ../leopard-sdk 的 obj-tui + include，输出 out/xsh.elf。"""
+"""xsh 构建：消费 ../XJ380-SDK 的 obj-tui + include，输出 out/xsh.elf。"""
 import os
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent          # xsh/
-SDK  = ROOT / ".." / "leopard-sdk"              # SDK 根（目录名若不同，改这一行）
-INC  = SDK / "include"
+SDK  = ROOT / ".." / "XJ380-SDK"              # SDK 根（目录名若不同，改这一行）
+INC  = SDK / "src" / "include"
 OBJ  = SDK / "obj-tui"
 OUT  = ROOT / "out"
 
@@ -13,14 +13,14 @@ SOURCES = ["main.c"]
 TARGET  = OUT / "xsh.elf"
 
 # SDK 运行时，链接顺序：crt0 入口 → 运行时 → 应用 → liballoc
-# XACT 2026v5 官方运行时（obj-tui/ 由 leopard-sdk 铺装）
+# 官方运行时（obj-tui/ 由 XJ380-SDK 构建）
 RUNTIME  = ["arch/x86_64/crt0.S.o", "libsys.cpp.o",
             "xtuiapi.cpp.o", "krlibc.cpp.o", "string.cpp.o", "stdlib.cpp.o",
             "stdio.cpp.o", "unistd.cpp.o", "errno.cpp.o", "posix_ret.cpp.o",
             "ctype.cpp.o", "permissions.cpp.o", "posix_fs.cpp.o",
             "posix_time.cpp.o", "posix_ioctl.cpp.o"]
 LIBALLOC = OBJ / "liballoc-x86_64.a"
-CRT      = SDK / "obj-extra" / "constart.cpp.o"  # Leopard CRT（替换官方 constart）
+CRT      = SDK / "obj-extra" / "start.cpp.o"  # 官方 start.cpp：无终端 fork/exec
 
 
 def rel(p):
@@ -49,7 +49,7 @@ def main():
     c_flags   = f"{common} -std=c11   -I {rel(INC)} -I . -MMD -MP"
     cpp_flags = f"{common} -std=c++11 -I {rel(INC)} -I . -Wno-write-strings -MMD -MP"
 
-    L = ["# xsh 构建（消费 ../leopard-sdk）",
+    L = ["# xsh 构建（消费 ../XJ380-SDK）",
          "ninja_required_version = 1.10",
          f"cc = {cc}", f"cxx = {cxx}", f"ld = {ld}",
          f"c_flags = {c_flags}", f"cpp_flags = {cpp_flags}", ""]

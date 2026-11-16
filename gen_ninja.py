@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""xsh 构建：消费 ../XJ380-SDK/out/crt 的 include + lib/x86_64，输出 out/xsh.elf。"""
+"""xsh 构建：消费 ../leopard-sdk/out/crt 的 include + lib/x86_64，输出 out/xsh.elf。"""
 import os
 from pathlib import Path
 
@@ -9,8 +9,8 @@ OUT  = ROOT / "out"
 SOURCES = ["main.c"]
 TARGET  = OUT / "xsh.elf"
 
-# XACT CRT（../XJ380-SDK/out/crt）：启动对象 + 静态运行时 + 分配器
-CRT_ROOT = ROOT / ".." / "XJ380-SDK"
+# XACT CRT（../leopard-sdk/out/crt）：启动对象 + 静态运行时 + 分配器
+CRT_ROOT = ROOT / ".." / "leopard-sdk"
 INC      = CRT_ROOT / "out" / "crt" / "include"
 LIB      = CRT_ROOT / "out" / "crt" / "lib" / "x86_64"
 CRT_OBJS = [LIB / "crt0.o", LIB / "start.o"]
@@ -42,7 +42,7 @@ def main():
     c_flags   = f"{common} -std=c11   -I {rel(INC)} -I . -MMD -MP"
     cpp_flags = f"{common} -std=c++11 -I {rel(INC)} -I . -Wno-write-strings -MMD -MP"
 
-    L = ["# xsh 构建（消费 ../XJ380-SDK/out/crt）",
+    L = ["# xsh 构建（消费 ../leopard-sdk/out/crt）",
          "ninja_required_version = 1.10",
          f"cc = {cc}", f"cxx = {cxx}", f"ld = {ld}",
          f"c_flags = {c_flags}", f"cpp_flags = {cpp_flags}", ""]
